@@ -11,25 +11,25 @@ namespace KaizenCaseStudy.Services
             Dictionary<string, string> CodeList = new Dictionary<string, string>();
             for (int i = 0; i < count; i++)
             {
-                var ValidCodeCompany = Random.Next(0,3);
-                var CompanyName = "";
-                switch (ValidCodeCompany)
+                var ValidCodeProduct = Random.Next(0,3);
+                var ProductName = "";
+                switch (ValidCodeProduct)
                 {
                     case 0:
-                        CompanyName = "Coca Cola";
+                        ProductName = "Coca Cola";
                         break;
                     case 1:
-                        CompanyName = "Pepsi";
+                        ProductName = "Pepsi";
                         break;
                     case 2:
-                        CompanyName = "Magnum";
+                        ProductName = "Magnum";
                         break;
                     default:
                         break;
                 }
                 var Code = GenerateSingleCode(8);
                 if(IsCodeValid(CodeList,Code))
-                    CodeList.Add(Code, CompanyName);
+                    CodeList.Add(Code, ProductName);
             }
 
             return CodeList;
@@ -39,11 +39,15 @@ namespace KaizenCaseStudy.Services
         {
             Random Random = new Random();
             char[] Result = new char[length];
+            //random * random mod length
 
             for (int i = 0; i < length; i++)
             {
                 int index = Random.Next(CodeCharacters.Length);
-                Result[i] = CodeCharacters[index];
+                // bu işlem, belirli bir örüntü içerisinde kodların oluşturulması için
+                //eklenmiştir. Rastgele oluşturulan sayının kübü alınıp karakter dizisi uzunluğuna göre modu ile yeni karakterin belirlenmesi şeklindedir.
+                var singleChar = Convert.ToInt32(Math.Pow(index + 1,3)) % CodeCharacters.Length; 
+                Result[i] = CodeCharacters[singleChar];
             }
 
             return new string(Result);
