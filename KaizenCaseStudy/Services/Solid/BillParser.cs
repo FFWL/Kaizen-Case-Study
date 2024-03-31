@@ -11,10 +11,8 @@ namespace KaizenCaseStudy.Services
         {
             string jsonFilePath = "Services\\Attachments\\response.json";
 
-            // JSON dosyasını okuyun
             string jsonString = File.ReadAllText(jsonFilePath);
 
-            // JSON verisini istediğiniz bir modele dönüştürün
             var model = JsonConvert.DeserializeObject<List<Bill>>(jsonString);
             var billStr = "";
             var treshold = 15;
